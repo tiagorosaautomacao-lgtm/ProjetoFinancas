@@ -1,0 +1,95 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "initialBalance": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "User-defined or default category for expenses",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "icon": { "type": "string" },
+        "color": { "type": "string" },
+        "uid": { "type": "string" }
+      },
+      "required": ["name", "icon", "color"]
+    },
+    "Card": {
+      "title": "Card",
+      "description": "A credit or debit card",
+      "type": "object",
+      "properties": {
+        "bank": { "type": "string" },
+        "brand": { "type": "string" },
+        "dueDay": { "type": "integer" },
+        "closingDay": { "type": "integer" },
+        "limit": { "type": "number" },
+        "uid": { "type": "string" }
+      },
+      "required": ["bank", "brand", "dueDay", "closingDay", "uid"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "A financial expense recorded by the user",
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number" },
+        "category": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "paymentMethod": { "type": "string", "enum": ["credit_card", "cash", "pix"] },
+        "description": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "cardId": { "type": "string" },
+        "pixBank": { "type": "string" },
+        "cardBillId": { "type": "string" },
+        "uid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "type": { "type": "string", "enum": ["expense", "income"] },
+        "isRecurring": { "type": "boolean" },
+        "frequency": { "type": "string", "enum": ["none", "monthly", "weekly", "yearly"] }
+      },
+      "required": ["amount", "category", "date", "paymentMethod", "uid", "type", "isRecurring"]
+    },
+    "CardBill": {
+      "title": "CardBill",
+      "description": "A monthly credit card bill",
+      "type": "object",
+      "properties": {
+        "month": { "type": "integer" },
+        "year": { "type": "integer" },
+        "dueDate": { "type": "string", "format": "date" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["open", "paid"] },
+        "uid": { "type": "string" }
+      },
+      "required": ["month", "year", "dueDate", "status", "uid"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "User expenses"
+    },
+    "/cardBills/{billId}": {
+      "schema": "CardBill",
+      "description": "Credit card bills"
+    }
+  }
+}

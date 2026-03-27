@@ -1,0 +1,5 @@
+{
+  "name": "Finanças Pro",
+  "description": "App de organização financeira com controle de gastos por categoria, fotos de recibos, separação por cartão e dinheiro, e controle de faturas.",
+  "requestFramePermissions": ["camera"]
+}
